@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,28 +13,15 @@ class AmazonCloneApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Amazon Clone',
-      theme: ThemeData(
-        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-        appBarTheme: const AppBarTheme(
-            elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
-        colorScheme:
-            const ColorScheme.light(primary: GlobalVariables.secondaryColor),
-        // useMaterial3: true,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Hello'),
+        debugShowCheckedModeBanner: false,
+        title: 'Amazon Clone',
+        theme: ThemeData(
+          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+          appBarTheme: const AppBarTheme(
+              elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
+          colorScheme:
+              const ColorScheme.light(primary: GlobalVariables.secondaryColor),
         ),
-        body: Column(
-          children: [
-            const Center(child: Text('This is a text')),
-            ElevatedButton(onPressed: () {}, child: const Text('Click'))
-          ],
-        ),
-      ),
-    );
+        home: const AuthScreen());
   }
 }
