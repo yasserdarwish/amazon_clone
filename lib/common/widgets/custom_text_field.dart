@@ -8,7 +8,12 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {},
+      validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return 'Please Enter your $hint';
+        }
+        return null;
+      },
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus!.unfocus();
       },

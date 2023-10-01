@@ -1,6 +1,7 @@
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signin, signup }
@@ -14,10 +15,12 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   Auth _auth = Auth.signup;
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
   void dispose() {
@@ -25,6 +28,14 @@ class _AuthScreenState extends State<AuthScreen> {
     _passwordController.dispose();
     _nameController.dispose();
     super.dispose();
+  }
+
+  void signupUser() {
+    authService.signupUser(
+        context: context,
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text);
   }
 
   @override
@@ -62,16 +73,17 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: GlobalVariables.backgroundColor,
                     padding: const EdgeInsets.all(8),
                     child: Form(
+                        autovalidateMode: autovalidateMode,
                         key: _signUpFormKey,
                         child: Column(
                           children: [
                             CustomTextField(
-                              controller: _emailController,
+                              controller: _nameController,
                               hint: 'Name',
                             ),
                             const SizedBox(height: 10),
                             CustomTextField(
-                              controller: _nameController,
+                              controller: _emailController,
                               hint: 'Email',
                             ),
                             const SizedBox(height: 10),
@@ -80,7 +92,18 @@ class _AuthScreenState extends State<AuthScreen> {
                               hint: 'Password',
                             ),
                             const SizedBox(height: 10),
-                            CustomButton(text: 'Sign Up', onPressed: () {})
+                            CustomButton(
+                                text: 'Sign Up',
+                                onPressed: () {
+                                  if (_signUpFormKey.currentState!.validate()) {
+                                    signupUser();
+                                  } else {
+                                    setState(() {
+                                      autovalidateMode =
+                                          AutovalidateMode.always;
+                                    });
+                                  }
+                                })
                           ],
                         )),
                   )
