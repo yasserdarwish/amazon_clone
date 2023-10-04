@@ -15,6 +15,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
+  final _signInFormKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -34,6 +35,13 @@ class _AuthScreenState extends State<AuthScreen> {
     authService.signupUser(
         context: context,
         name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text);
+  }
+
+  void signinUser() {
+    authService.signinUser(
+        context: context,
         email: _emailController.text,
         password: _passwordController.text);
   }
@@ -130,11 +138,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     color: GlobalVariables.backgroundColor,
                     padding: const EdgeInsets.all(8),
                     child: Form(
-                        key: _signUpFormKey,
+                        autovalidateMode: autovalidateMode,
+                        key: _signInFormKey,
                         child: Column(
                           children: [
                             CustomTextField(
-                              controller: _nameController,
+                              controller: _emailController,
                               hint: 'Email',
                             ),
                             const SizedBox(height: 10),
@@ -143,7 +152,18 @@ class _AuthScreenState extends State<AuthScreen> {
                               hint: 'Password',
                             ),
                             const SizedBox(height: 10),
-                            CustomButton(text: 'Login', onPressed: () {})
+                            CustomButton(
+                                text: 'Login',
+                                onPressed: () {
+                                  if (_signInFormKey.currentState!.validate()) {
+                                    signinUser();
+                                  } else {
+                                    setState(() {
+                                      autovalidateMode =
+                                          AutovalidateMode.always;
+                                    });
+                                  }
+                                })
                           ],
                         )),
                   )
