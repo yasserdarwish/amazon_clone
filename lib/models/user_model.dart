@@ -33,7 +33,7 @@ class User {
 
   String toJson() => jsonEncode(toMap());
 
-  factory User.fromJson(Map<String, dynamic> user) {
+  factory User.fromMap(Map<String, dynamic> user) {
     return User(
       id: user['_id'] ?? '',
       name: user['name'] ?? '',
@@ -44,4 +44,6 @@ class User {
       token: user['token'] ?? '',
     );
   }
+
+  factory User.fromJson(String source) => User.fromMap(jsonDecode(source));
 }
