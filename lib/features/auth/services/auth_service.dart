@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:amazon_clone/common/widgets/bottom_bar.dart';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/extensions.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
-import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:amazon_clone/models/user_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class AuthService {
             }
             await prefs.setString(
                 'x-auth-token', jsonDecode(response.body)['token']);
-            context.navigateTo(const HomeScreen());
+            context.navigateTo(const BottomBar());
           },
         );
       }
