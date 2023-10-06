@@ -1,12 +1,7 @@
 import 'package:amazon_clone/models/user_model.dart';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 
-part 'user_state.dart';
-
-class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(UserInitial());
-
+class UserProvider extends ChangeNotifier {
   User _user = User(
       id: '',
       name: '',
@@ -20,6 +15,6 @@ class UserCubit extends Cubit<UserState> {
 
   void setUser(String user) {
     _user = User.fromJson(user);
-    emit(state);
+    notifyListeners();
   }
 }

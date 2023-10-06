@@ -1,31 +1,47 @@
 import 'package:amazon_clone/constants/global_variables.dart';
-import 'package:amazon_clone/cubits/cubit/user_cubit.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
+import 'package:amazon_clone/features/auth/services/auth_service.dart';
+import 'package:amazon_clone/features/home/screens/home_screen.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const AmazonCloneApp());
+void main() async {
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserProvider(),
+    child: const AmazonCloneApp(),
+  ));
 }
 
-class AmazonCloneApp extends StatelessWidget {
+class AmazonCloneApp extends StatefulWidget {
   const AmazonCloneApp({super.key});
 
   @override
+  State<AmazonCloneApp> createState() => _AmazonCloneAppState();
+}
+
+class _AmazonCloneAppState extends State<AmazonCloneApp> {
+  final AuthService authService = AuthService();
+  @override
+  void initState() {
+    authService.getUserData(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserCubit(),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Amazon Clone',
-          theme: ThemeData(
-            scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-            appBarTheme: const AppBarTheme(
-                elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
-            colorScheme: const ColorScheme.light(
-                primary: GlobalVariables.secondaryColor),
-          ),
-          home: const AuthScreen()),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Amazon Clone',
+        theme: ThemeData(
+          scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+          appBarTheme: const AppBarTheme(
+              elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
+          colorScheme:
+              const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+        ),
+        home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+            ? const HomeScreen()
+            : const AuthScreen());
   }
 }

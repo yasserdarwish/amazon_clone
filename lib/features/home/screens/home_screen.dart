@@ -1,7 +1,7 @@
-import 'package:amazon_clone/cubits/cubit/user_cubit.dart';
 import 'package:amazon_clone/models/user_model.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final User user = BlocProvider.of<UserCubit>(context).user;
+    final User user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       body: Center(
         child: Text(user.toJson()),
