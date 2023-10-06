@@ -89,4 +89,12 @@ class AuthService {
       }
     }
   }
+
+  void getUserData(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('x-auth-token');
+    if (token == null) {
+      prefs.setString('x-auth-token', '');
+    }
+  }
 }
