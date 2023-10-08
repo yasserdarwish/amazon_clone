@@ -11,18 +11,21 @@ class BelowAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final User user = Provider.of<UserProvider>(context).user;
     return Container(
-      width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       decoration: const BoxDecoration(gradient: GlobalVariables.appBarGradient),
-      child: RichText(
-        text: TextSpan(
-            style: const TextStyle(fontSize: 22, color: Colors.black),
-            children: <TextSpan>[
-              const TextSpan(text: 'Hello, '),
-              TextSpan(
-                  text: user.name,
-                  style: const TextStyle(fontWeight: FontWeight.w600)),
-            ]),
+      child: Row(
+        children: [
+          RichText(
+            text: TextSpan(
+                style: const TextStyle(fontSize: 22, color: Colors.black),
+                children: <TextSpan>[
+                  const TextSpan(text: 'Hello, '),
+                  TextSpan(
+                      text: user.name,
+                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                ]),
+          ),
+        ],
       ),
     );
   }
