@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
-      {super.key, required this.controller, required this.hint, this.maxLines});
+      {super.key,
+      required this.controller,
+      required this.hint,
+      this.maxLines,
+      required this.digitsOnly});
   final TextEditingController controller;
   final String hint;
   final int? maxLines;
+  final bool digitsOnly;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: digitsOnly
+          ? const TextInputType.numberWithOptions(decimal: true)
+          : null,
+      inputFormatters:
+          digitsOnly ? [FilteringTextInputFormatter.digitsOnly] : [],
       maxLines: maxLines,
       validator: (value) {
         if (value?.isEmpty ?? true) {

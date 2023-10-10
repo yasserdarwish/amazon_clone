@@ -86,16 +86,19 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           children: [
                             CustomTextField(
+                              digitsOnly: false,
                               controller: _nameController,
                               hint: 'Name',
                             ),
                             const SizedBox(height: 10),
                             CustomTextField(
+                              digitsOnly: false,
                               controller: _emailController,
                               hint: 'Email',
                             ),
                             const SizedBox(height: 10),
                             CustomTextField(
+                              digitsOnly: false,
                               controller: _passwordController,
                               hint: 'Password',
                             ),
@@ -143,11 +146,13 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Column(
                           children: [
                             CustomTextField(
+                              digitsOnly: false,
                               controller: _emailController,
                               hint: 'Email',
                             ),
                             const SizedBox(height: 10),
                             CustomTextField(
+                              digitsOnly: false,
                               controller: _passwordController,
                               hint: 'Password',
                             ),

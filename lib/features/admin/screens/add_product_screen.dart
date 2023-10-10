@@ -60,9 +60,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
           description: descriptionController.text,
           category: category,
           price: double.parse(priceController.text),
-          quantity: int.parse(quantityController.text),
+          quantity: double.parse(quantityController.text),
           images: images);
     } else {
+      if (images.isEmpty) {
+        showSnackBar(context, 'Please add some images of your product');
+      }
       setState(() {
         autovalidateMode = AutovalidateMode.always;
       });
@@ -138,20 +141,25 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                   const SizedBox(height: 30),
                   CustomTextField(
-                      controller: productNameController, hint: 'Product Name'),
+                      digitsOnly: false,
+                      controller: productNameController,
+                      hint: 'Product Name'),
                   const SizedBox(height: 10),
                   CustomTextField(
+                    digitsOnly: false,
                     controller: descriptionController,
                     hint: 'Description',
                     maxLines: 7,
                   ),
                   const SizedBox(height: 10),
                   CustomTextField(
+                    digitsOnly: true,
                     controller: priceController,
                     hint: 'Price',
                   ),
                   const SizedBox(height: 10),
                   CustomTextField(
+                    digitsOnly: true,
                     controller: quantityController,
                     hint: 'Quantity',
                   ),
