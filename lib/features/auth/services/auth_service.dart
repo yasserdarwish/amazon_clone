@@ -35,7 +35,7 @@ class AuthService {
         },
       );
       if (context.mounted) {
-        httoErrorHandling(
+        httpErrorHandling(
           context: context,
           response: response,
           onSuccess: () {
@@ -68,7 +68,7 @@ class AuthService {
       );
       debugPrint(response.body);
       if (context.mounted) {
-        httoErrorHandling(
+        httpErrorHandling(
           context: context,
           response: response,
           onSuccess: () async {

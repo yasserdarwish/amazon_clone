@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const authRouter = require("./routers/auth.js");
+const adminRouter = require("./routers/admin.js");
 
 const PORT = 3000;
 const app = express();
@@ -9,6 +10,7 @@ const DB = "mongodb+srv://yasser:127845963Eslam@cluster0.qnqe2jn.mongodb.net/?re
 //middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(adminRouter);
 
 //Connections
 mongoose.connect(DB).then(() => {console.log("Connection Successfull");}).catch((e) => {

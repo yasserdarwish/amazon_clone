@@ -4,7 +4,7 @@ import 'package:amazon_clone/constants/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-void httoErrorHandling({
+void httpErrorHandling({
   required http.Response response,
   required BuildContext context,
   required VoidCallback onSuccess,
